@@ -1,0 +1,47 @@
+function search(){
+
+    var uNameVal = document.getElementById('uNameVal').value;
+    var urlVal = "https://api.github.com/users/" + uNameVal;
+    var urlValRepo = "https://api.github.com/users/" + uNameVal + "/repos";
+
+
+
+    fetch(urlVal)
+    .then(response => response.json())
+    .then(response =>
+        { 
+        span = document.getElementById("login");
+        span.innerHTML = response.login;
+        span = document.getElementById("name");
+        span.innerHTML = response.name;
+        span = document.getElementById("location");
+        span.innerHTML = response.location;
+        span = document.getElementById("avatar_url");
+        span.src = response.avatar_url;
+        span = document.getElementById("public_gists");
+        span.innerHTML = response.public_gists;
+
+
+
+        })
+
+    fetch(urlValRepo)
+    .then(response => response.json())
+    .then(response => 
+        { 
+            
+            let clear = document.getElementById("repoInfo")
+            clear.innerHTML = "";
+
+            let repoInfo = document.querySelector("#repoInfo"); response.forEach(function (repo) {
+                let repository = document.createElement("div");
+                repository.innerHTML= "Name:" + repo.name + " Description: " + repo.description;
+                repoInfo.appendChild(repository);
+            });
+        })
+
+
+
+
+
+}
